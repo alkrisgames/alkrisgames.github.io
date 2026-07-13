@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=20">
+    <link rel="stylesheet" href="style.css?v=21">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -47,11 +47,6 @@
     <main>
         <!-- Hero Section -->
         <section class="hero-section" id="hero">
-            <!-- Floating Tetromino Background Decorations -->
-            <div class="floating-block block-i"></div>
-            <div class="floating-block block-t"></div>
-            <div class="floating-block block-o"></div>
-            <div class="floating-block block-l"></div>
             
             <div class="container hero-grid">
                 <div class="hero-content">
@@ -110,44 +105,44 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Floating Glass Control Panel underneath/beside mockup -->
-                        <div class="floating-controls-glass">
-                            <div class="controls-grid">
-                                <!-- Navigation Buttons -->
-                                <div class="dpad-radial">
-                                    <button class="dpad-btn-neon up" id="ctrl-up" title="Hold Piece">
-                                        <i class="fa-solid fa-caret-up"></i>
-                                    </button>
-                                    <button class="dpad-btn-neon left" id="ctrl-left" title="Move Left">
-                                        <i class="fa-solid fa-caret-left"></i>
-                                    </button>
-                                    <button class="dpad-btn-neon right" id="ctrl-right" title="Move Right">
-                                        <i class="fa-solid fa-caret-right"></i>
-                                    </button>
-                                    <button class="dpad-btn-neon down" id="ctrl-down" title="Soft Drop">
-                                        <i class="fa-solid fa-caret-down"></i>
-                                    </button>
-                                    <div class="dpad-core"></div>
+                            
+                            <!-- Housed inside the smartphone body below the screen! -->
+                            <div class="phone-controls-area">
+                                <div class="controls-grid">
+                                    <!-- Navigation Buttons -->
+                                    <div class="dpad-radial">
+                                        <button class="dpad-btn-neon up" id="ctrl-up" title="Hold Piece">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                        </button>
+                                        <button class="dpad-btn-neon left" id="ctrl-left" title="Move Left">
+                                            <i class="fa-solid fa-caret-left"></i>
+                                        </button>
+                                        <button class="dpad-btn-neon right" id="ctrl-right" title="Move Right">
+                                            <i class="fa-solid fa-caret-right"></i>
+                                        </button>
+                                        <button class="dpad-btn-neon down" id="ctrl-down" title="Soft Drop">
+                                            <i class="fa-solid fa-caret-down"></i>
+                                        </button>
+                                        <div class="dpad-core"></div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="action-buttons-neon">
+                                        <button class="act-btn-neon rotate" id="ctrl-rotate" title="Rotate Piece">
+                                            <i class="fa-solid fa-rotate-right"></i> ROTATE
+                                        </button>
+                                        <button class="act-btn-neon drop" id="ctrl-drop" title="Hard Drop">
+                                            <i class="fa-solid fa-circle-down"></i> DROP
+                                        </button>
+                                    </div>
                                 </div>
                                 
-                                <!-- Action Buttons -->
-                                <div class="action-buttons-neon">
-                                    <button class="act-btn-neon rotate" id="ctrl-rotate" title="Rotate Piece">
-                                        <i class="fa-solid fa-rotate-right"></i> ROTATE
-                                    </button>
-                                    <button class="act-btn-neon drop" id="ctrl-drop" title="Hard Drop">
-                                        <i class="fa-solid fa-circle-down"></i> DROP
-                                    </button>
+                                <!-- Small Utility buttons -->
+                                <div class="mini-utils-neon">
+                                    <button class="mini-util-btn" id="ctrl-pause"><i class="fa-solid fa-pause"></i> PAUSE</button>
+                                    <button class="mini-util-btn" id="ctrl-sound"><i class="fa-solid fa-volume-high" id="sound-icon"></i> SOUND</button>
+                                    <button class="mini-util-btn" id="ctrl-reset"><i class="fa-solid fa-arrow-rotate-left"></i> RESET</button>
                                 </div>
-                            </div>
-                            
-                            <!-- Small Utility buttons -->
-                            <div class="mini-utils-neon">
-                                <button class="mini-util-btn" id="ctrl-pause"><i class="fa-solid fa-pause"></i> PAUSE</button>
-                                <button class="mini-util-btn" id="ctrl-sound"><i class="fa-solid fa-volume-high" id="sound-icon"></i> SOUND</button>
-                                <button class="mini-util-btn" id="ctrl-reset"><i class="fa-solid fa-arrow-rotate-left"></i> RESET</button>
                             </div>
                         </div>
                     </div>
@@ -540,7 +535,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="demo.js?v=20"></script>
-    <script src="app.js?v=20"></script>
+    <script src="demo.js?v=21"></script>
+    <script src="app.js?v=21"></script>
 </body>
 </html>
