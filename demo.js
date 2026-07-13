@@ -12,11 +12,17 @@ class RetroBrickGame {
         if (!this.canvas) return;
         this.ctx = this.canvas.getContext('2d');
         
+        // Dynamically scale logical canvas bounds to physical client layout bounds
+        // This removes black margins on the sides and upsizes the board to fit completely!
+        const rect = this.canvas.getBoundingClientRect();
+        this.canvas.width = rect.width || 240;
+        this.canvas.height = rect.height || 400;
+        
         // LCD screen dimensions (10 x 20 logical brick grid)
         this.cols = 10;
         this.rows = 20;
-        this.blockSizeX = this.canvas.width / this.cols; // 240 / 10 = 24
-        this.blockSizeY = this.canvas.height / this.rows; // 400 / 20 = 20
+        this.blockSizeX = this.canvas.width / this.cols;
+        this.blockSizeY = this.canvas.height / this.rows;
         
         // Colors for retro LCD look (Purple Synthwave theme)
         this.colorBg = '#070312';      // Screen dark bg
@@ -530,29 +536,32 @@ class RetroBrickGame {
             this.ctx.lineWidth = 1.5;
             this.ctx.stroke();
         } else {
-            // Shiny 3D radial gradient sphere drawing
-            const gradX = centerX - radius / 3;
-            const gradY = centerY - radius / 3;
-            const gradRadius = radius * 0.15;
+            // High-contrast, shiny glass radial gradient sphere drawing
+            const highlightX = centerX - radius * 0.32;
+            const highlightY = centerY - radius * 0.32;
             
             const gradient = this.ctx.createRadialGradient(
-                gradX, gradY, gradRadius,
+                highlightX, highlightY, radius * 0.05,
                 centerX, centerY, radius
             );
             
-            gradient.addColorStop(0, '#ffffff'); // Highlight point
-            gradient.addColorStop(0.2, colorSet.light);
-            gradient.addColorStop(0.7, colorSet.main);
-            gradient.addColorStop(1, colorSet.dark);
+            gradient.addColorStop(0, '#ffffff');       // Glossy white highlight highlight peak
+            gradient.addColorStop(0.18, '#ffffff');    // Strong reflection edge
+            gradient.addColorStop(0.4, colorSet.light); // Light neon core color
+            gradient.addColorStop(0.85, colorSet.main); // Saturated neon body
+            gradient.addColorStop(1, colorSet.dark);    // Dark 3D bottom shading edge
             
+            // 1. Draw glowing neon backdrop shadow first to avoid clipping the sphere itself
+            this.ctx.save();
+            this.ctx.shadowBlur = 12; // Intense neon glow shadow
+            this.ctx.shadowColor = colorSet.main;
             this.ctx.fillStyle = gradient;
             this.ctx.fill();
+            this.ctx.restore();
             
-            // Neon glowing drop shadow effect
-            this.ctx.shadowBlur = 4;
-            this.ctx.shadowColor = colorSet.main;
+            // 2. Draw glossy overlay on top
+            this.ctx.fillStyle = gradient;
             this.ctx.fill();
-            this.ctx.shadowBlur = 0; // Reset canvas shadow parameter
         }
     }
     
