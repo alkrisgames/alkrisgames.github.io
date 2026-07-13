@@ -3,6 +3,8 @@
   - Starfield background particle effect
   - Navigation handlers
   - UI control hooks for emulator
+  - Screenshot gallery horizontal scrolling
+  - Trailer video modal dialog toggle
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Starfield Particle Effect (Outward flight warp)
+    // 2. Starfield Warp Speed Particle Background
     const starfieldCanvas = document.getElementById('starfield');
     if (starfieldCanvas) {
         const ctx = starfieldCanvas.getContext('2d');
         let stars = [];
         const numStars = 150;
         let centerX, centerY;
-        let animationFrameId;
 
         function resizeCanvas() {
             starfieldCanvas.width = window.innerWidth;
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Initialize stars
+        // Initialize stars with purple and cyan colors
         for (let i = 0; i < numStars; i++) {
             stars.push({
                 x: Math.random() * starfieldCanvas.width - centerX,
@@ -62,19 +63,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function drawStars() {
-            ctx.fillStyle = '#080511';
+            ctx.fillStyle = '#0b0f1a'; // Match the premium dark background
             ctx.fillRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
 
-            // Draw a subtle horizontal glow in the center for synthwave sunset look
+            // Synthwave horizon glowing effect
             const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, starfieldCanvas.width / 2);
-            gradient.addColorStop(0, 'rgba(157, 78, 221, 0.08)');
+            gradient.addColorStop(0, 'rgba(157, 78, 221, 0.06)');
             gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
 
             for (let i = 0; i < numStars; i++) {
                 const star = stars[i];
-                star.z -= 1.5; // speed of warp
+                star.z -= 1.2; // Warp speed rate
 
                 if (star.z <= 0) {
                     star.z = starfieldCanvas.width;
@@ -82,21 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     star.y = Math.random() * starfieldCanvas.height - centerY;
                 }
 
-                // Project 3D coordinates onto 2D screen
                 const px = (star.x / star.z) * 400 + centerX;
                 const py = (star.y / star.z) * 400 + centerY;
 
                 if (px < 0 || px > starfieldCanvas.width || py < 0 || py > starfieldCanvas.height) {
-                    continue; // Out of bounds
+                    continue;
                 }
 
-                // Size depends on depth (closer stars are larger)
                 const size = (1 - star.z / starfieldCanvas.width) * 3;
                 
                 ctx.beginPath();
                 ctx.arc(px, py, size, 0, Math.PI * 2);
                 ctx.fillStyle = star.color;
-                // Add a subtle glowing effect to closer stars
+                
                 if (size > 1.5) {
                     ctx.shadowBlur = 4;
                     ctx.shadowColor = star.color;
@@ -105,15 +104,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 ctx.fill();
             }
-            ctx.shadowBlur = 0; // reset
-            animationFrameId = requestAnimationFrame(drawStars);
+            ctx.shadowBlur = 0; // Reset
+            requestAnimationFrame(drawStars);
         }
 
         drawStars();
     }
 
-    // 3. UI Controls Hook for the Handheld Console
-    // The emulator instances will define global handles `window.retroGameInstance`
+    // 3. Horizontal Screenshot Gallery Controls
+    const gallery = document.getElementById('screenshot-gallery');
+    const prevBtn = document.getElementById('gallery-prev-btn');
+    const nextBtn = document.getElementById('gallery-next-btn');
+
+    if (gallery && prevBtn && nextBtn) {
+        const scrollAmount = 350; // Scroll width of one slide + gap
+
+        prevBtn.addEventListener('click', () => {
+            gallery.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            gallery.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // 4. Trailer Modal Window Logic
+    const watchTrailerBtn = document.getElementById('btn-watch-trailer');
+    const trailerModal = document.getElementById('trailer-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    if (watchTrailerBtn && trailerModal && closeModalBtn) {
+        watchTrailerBtn.addEventListener('click', () => {
+            trailerModal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            trailerModal.classList.remove('active');
+        });
+
+        // Close when clicking overlay backdrop
+        trailerModal.addEventListener('click', (e) => {
+            if (e.target === trailerModal) {
+                trailerModal.classList.remove('active');
+            }
+        });
+    }
+
+    // 5. Handheld Emulator Input Hook bindings
     const btnLeft = document.getElementById('ctrl-left');
     const btnRight = document.getElementById('ctrl-right');
     const btnDown = document.getElementById('ctrl-down');
@@ -130,14 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlayStart = document.getElementById('screen-overlay-start');
     const overlayGameOver = document.getElementById('screen-overlay-gameover');
 
-    // Trigger helper
     function sendKey(keyName, action = 'keydown') {
         if (window.retroGameInstance) {
             window.retroGameInstance.handleInput(keyName, action);
         }
     }
 
-    // Touch D-Pad Controls
+    // Bind event listeners to UI D-pad buttons
     if (btnLeft) {
         btnLeft.addEventListener('mousedown', () => sendKey('ArrowLeft', 'keydown'));
         btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); sendKey('ArrowLeft', 'keydown'); });
@@ -158,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnUp.addEventListener('touchstart', (e) => { e.preventDefault(); sendKey('ArrowUp', 'keydown'); });
     }
     if (btnRotate) {
-        btnRotate.addEventListener('mousedown', () => sendKey('KeyX', 'keydown')); // X or ArrowUp for rotate
+        btnRotate.addEventListener('mousedown', () => sendKey('KeyX', 'keydown'));
         btnRotate.addEventListener('touchstart', (e) => { e.preventDefault(); sendKey('KeyX', 'keydown'); });
     }
     if (btnDrop) {
@@ -166,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnDrop.addEventListener('touchstart', (e) => { e.preventDefault(); sendKey('Space', 'keydown'); });
     }
 
-    // Utility Panel
+    // Utility panel
     if (btnPause) {
         btnPause.addEventListener('click', () => {
             if (window.retroGameInstance) {
@@ -192,14 +234,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 overlayGameOver.classList.remove('active');
                 overlayStart.classList.remove('active');
                 
-                // reset pause button display
                 const pIcon = btnPause?.querySelector('i');
                 if (pIcon) pIcon.className = 'fas fa-pause';
             }
         });
     }
 
-    // Overlay Buttons
+    // Overlay triggers
     if (overlayStartBtn) {
         overlayStartBtn.addEventListener('click', () => {
             overlayStart.classList.remove('active');
@@ -221,15 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Keyboard handlers
+    // Global keyboard keys binders
     window.addEventListener('keydown', (e) => {
-        // Prevent scrolling with arrows/space while playing inside the emulator area
         const keysToPrevent = ['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
         if (keysToPrevent.includes(e.code)) {
-            // Check if user is scrolled near the play section or in focus
-            const playRect = document.getElementById('play')?.getBoundingClientRect();
-            if (playRect && playRect.top < window.innerHeight && playRect.bottom > 0) {
-                e.preventDefault();
+            const playSection = document.getElementById('hero');
+            if (playSection) {
+                const rect = playSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    e.preventDefault();
+                }
             }
         }
         
