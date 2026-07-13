@@ -398,7 +398,7 @@ body::before {
     border: 10px solid #1f1a3a;
     border-radius: 36px;
     box-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.05);
-    height: 550px;
+    height: 760px; /* Increased height to fit 1:2 canvas perfectly */
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -420,9 +420,9 @@ body::before {
 }
 
 .phone-screen {
-    height: 340px;
+    height: 560px; /* Increased screen height to match 1:2 aspect ratio canvas */
     width: 100%;
-    padding: 22px 10px 10px;
+    padding: 25px 0 0; /* Remove horizontal padding so canvas touches edges */
     background-color: #070312;
     display: flex;
     flex-direction: column;
@@ -450,7 +450,7 @@ body::before {
     color: #a58fff;
     margin-bottom: 6px;
     border-bottom: 1px dashed #261354;
-    padding-bottom: 4px;
+    padding: 0 12px 4px; /* Added horizontal padding inside status bar */
     position: relative;
     z-index: 10;
 }
@@ -1793,11 +1793,11 @@ body::before {
     }
     
     .smartphone-device {
-        height: 500px;
+        height: 680px; /* Scaled mobile device height */
     }
     
     .phone-screen {
-        height: 310px;
+        height: 510px; /* Scaled mobile screen height */
     }
     
     .phone-controls-area {
