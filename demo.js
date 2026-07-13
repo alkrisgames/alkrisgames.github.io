@@ -610,18 +610,23 @@ class RetroBrickGame {
             this.ctx.restore();
         }
         
-        // 3. Draw unlit grid pixel spots
+        // 3. Draw unlit grid pixel spots as faint circles
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
-                const pxX = c * this.blockSizeX;
-                const pxY = r * this.blockSizeY;
+                const centerX = c * this.blockSizeX + this.blockSizeX / 2;
+                const centerY = r * this.blockSizeY + this.blockSizeY / 2;
+                const radius = Math.min(this.blockSizeX, this.blockSizeY) / 2 - 1.5;
                 
-                // Draw unlit grid pixel spots
-                this.ctx.strokeStyle = this.colorGrid;
-                this.ctx.strokeRect(pxX, pxY, this.blockSizeX, this.blockSizeY);
+                // Soft unlit circle placeholder
+                this.ctx.beginPath();
+                this.ctx.arc(centerX, centerY, radius - 2, 0, Math.PI * 2);
                 
-                this.ctx.fillStyle = this.colorPixelOff;
-                this.ctx.fillRect(pxX + 2, pxY + 2, this.blockSizeX - 4, this.blockSizeY - 4);
+                this.ctx.fillStyle = 'rgba(28, 13, 61, 0.15)'; 
+                this.ctx.fill();
+                
+                this.ctx.strokeStyle = 'rgba(165, 143, 255, 0.08)';
+                this.ctx.lineWidth = 1;
+                this.ctx.stroke();
             }
         }
     }

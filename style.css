@@ -374,7 +374,7 @@ body::before {
 
 .device-mockup-container {
     position: relative;
-    width: 380px;
+    width: 290px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -395,10 +395,10 @@ body::before {
 
 .smartphone-device {
     background: #020108;
-    border: 12px solid #1f1a3a;
-    border-radius: 42px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.05);
-    height: 720px;
+    border: 10px solid #1f1a3a;
+    border-radius: 36px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.05);
+    height: 550px;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -420,9 +420,9 @@ body::before {
 }
 
 .phone-screen {
-    height: 480px;
+    height: 340px;
     width: 100%;
-    padding: 30px 16px 12px;
+    padding: 22px 10px 10px;
     background-color: #070312;
     display: flex;
     flex-direction: column;
@@ -431,11 +431,11 @@ body::before {
 .phone-controls-area {
     width: 100%;
     background-color: #0c0822;
-    padding: 22px 25px;
+    padding: 14px 18px;
     border-top: 2px solid #261354;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     position: relative;
     z-index: 10;
     flex-grow: 1; /* Stretch to fill the bottom parent area! */
@@ -466,8 +466,9 @@ body::before {
 
 #gameCanvas {
     display: block;
-    width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 2;
+    margin: 0 auto;
 }
 
 .lcd-grid-overlay {
@@ -575,22 +576,22 @@ body::before {
 
 .controls-grid {
     display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 20px;
+    grid-template-columns: 76px 1fr;
+    gap: 15px;
     align-items: center;
 }
 
 /* Dpad styling */
 .dpad-radial {
     position: relative;
-    width: 90px;
-    height: 90px;
+    width: 76px;
+    height: 76px;
 }
 
 .dpad-btn-neon {
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     background: #110e20;
     border: 1.5px solid rgba(0, 243, 255, 0.3);
     color: #4a446a;
@@ -598,7 +599,7 @@ body::before {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     transition: border-color 0.2s, color 0.2s, background-color 0.2s;
 }
@@ -610,17 +611,17 @@ body::before {
     box-shadow: var(--glow-cyan);
 }
 
-.dpad-btn-neon.up { top: 0; left: 31px; border-radius: 6px 6px 0 0; }
-.dpad-btn-neon.left { top: 31px; left: 0; border-radius: 6px 0 0 6px; }
-.dpad-btn-neon.right { top: 31px; right: 0; border-radius: 0 6px 6px 0; }
-.dpad-btn-neon.down { bottom: 0; left: 31px; border-radius: 0 0 6px 6px; }
+.dpad-btn-neon.up { top: 0; left: 26px; border-radius: 4px 4px 0 0; }
+.dpad-btn-neon.left { top: 26px; left: 0; border-radius: 4px 0 0 4px; }
+.dpad-btn-neon.right { top: 26px; right: 0; border-radius: 0 4px 4px 0; }
+.dpad-btn-neon.down { bottom: 0; left: 26px; border-radius: 0 0 4px 4px; }
 
 .dpad-core {
     position: absolute;
-    top: 31px;
-    left: 31px;
-    width: 28px;
-    height: 28px;
+    top: 26px;
+    left: 26px;
+    width: 24px;
+    height: 24px;
     background-color: #110e20;
     z-index: 1;
 }
@@ -634,17 +635,17 @@ body::before {
 
 .act-btn-neon {
     width: 100%;
-    padding: 10px 15px;
-    border-radius: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: transform 0.1s, box-shadow 0.2s, background-color 0.2s;
     border: none;
 }
@@ -691,12 +692,12 @@ body::before {
     color: #4a446a;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.5px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     transition: color 0.2s;
 }
 
@@ -1788,42 +1789,43 @@ body::before {
     }
     
     .device-mockup-container {
-        width: 290px;
+        width: 260px;
     }
     
     .smartphone-device {
-        height: 610px;
+        height: 500px;
     }
     
     .phone-screen {
-        height: 380px;
+        height: 310px;
     }
     
     .phone-controls-area {
-        padding: 15px 12px;
-        gap: 10px;
+        padding: 10px 12px;
+        gap: 8px;
     }
     
     .controls-grid {
-        grid-template-columns: 80px 1fr;
-        gap: 15px;
+        grid-template-columns: 68px 1fr;
+        gap: 10px;
     }
     
     .dpad-radial {
-        width: 80px;
-        height: 80px;
+        width: 68px;
+        height: 68px;
     }
     
     .dpad-btn-neon {
-        width: 25px;
-        height: 25px;
+        width: 22px;
+        height: 22px;
+        font-size: 0.6rem;
     }
     
-    .dpad-btn-neon.up { left: 27px; }
-    .dpad-btn-neon.left { top: 27px; }
-    .dpad-btn-neon.right { top: 27px; }
-    .dpad-btn-neon.down { left: 27px; }
-    .dpad-core { top: 27px; left: 27px; width: 25px; height: 25px; }
+    .dpad-btn-neon.up { left: 23px; }
+    .dpad-btn-neon.left { top: 23px; }
+    .dpad-btn-neon.right { top: 23px; }
+    .dpad-btn-neon.down { left: 23px; }
+    .dpad-core { top: 23px; left: 23px; width: 22px; height: 22px; }
     
     .stats-grid {
         grid-template-columns: 1fr;
