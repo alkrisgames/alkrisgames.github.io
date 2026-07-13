@@ -18,12 +18,12 @@ class RetroBrickGame {
         this.blockSizeX = this.canvas.width / this.cols; // 240 / 10 = 24
         this.blockSizeY = this.canvas.height / this.rows; // 400 / 20 = 20
         
-        // Colors for retro LCD look
-        this.colorBg = '#0a140d';      // Screen dark bg
-        this.colorGrid = '#122417';    // Very dim unlit pixel borders
-        this.colorPixelOff = '#112215'; // Unlit pixel core
-        this.colorPixelOn = '#8ca895';  // Glowing LCD active pixel color
-        this.colorGhost = '#2b4433';    // Dimmer glowing ghost block
+        // Colors for retro LCD look (Purple Synthwave theme)
+        this.colorBg = '#070312';      // Screen dark bg
+        this.colorGrid = '#1c0d3d';    // Very dim unlit pixel borders
+        this.colorPixelOff = 'rgba(28, 13, 61, 0.25)'; // Semi-translucent unlit pixel core so comets show behind!
+        this.colorPixelOn = '#a58fff';  // Glowing LCD active pixel color
+        this.colorGhost = 'rgba(165, 143, 255, 0.2)'; // Dimmer glowing ghost block
         
         // Game state variables
         this.grid = [];
@@ -69,10 +69,19 @@ class RetroBrickGame {
         };
         
         this.initGrid();
+        
+        // Initialize background stars and comets
+        this.backgroundOrbs = [];
+        this.initBackgroundOrbs();
+        
         this.drawEmptyGrid();
         
         // Register global handle
         window.retroGameInstance = this;
+        
+        // Start animation frame render loop
+        this.animate = this.animate.bind(this);
+        requestAnimationFrame(this.animate);
     }
     
     // Lazy initialize AudioContext on user interaction
@@ -439,6 +448,65 @@ class RetroBrickGame {
         if (linesHUD) linesHUD.textContent = `LINES: ${this.padNumber(this.lines, 2)}`;
     }
     
+    // Background space particles logic
+    initBackgroundOrbs() {
+        this.backgroundOrbs = [];
+        // Spawn 20 stars
+        for (let i = 0; i < 20; i++) {
+            this.backgroundOrbs.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                speed: 0.1 + Math.random() * 0.2,
+                size: 1 + Math.random() * 1.5,
+                type: 'star',
+                color: Math.random() > 0.5 ? '#a58fff' : '#ffffff',
+                opacity: 0.3 + Math.random() * 0.4
+            });
+        }
+        // Spawn 5 comets
+        for (let i = 0; i < 5; i++) {
+            this.backgroundOrbs.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height - 100, // Start above screen
+                speed: 1.2 + Math.random() * 1.5,
+                size: 2 + Math.random() * 1.5,
+                type: 'comet',
+                color: '#bef4ff', // Cyan-white head
+                opacity: 0.88 // 88% transparency as requested!
+            });
+        }
+    }
+
+    updateBackgroundOrbs() {
+        for (let i = 0; i < this.backgroundOrbs.length; i++) {
+            const orb = this.backgroundOrbs[i];
+            if (orb.type === 'star') {
+                orb.y += orb.speed;
+                if (orb.y > this.canvas.height) {
+                    orb.y = 0;
+                    orb.x = Math.random() * this.canvas.width;
+                }
+            } else { // comet
+                // Fall diagonally (leftwards and downwards)
+                orb.y += orb.speed;
+                orb.x -= orb.speed * 0.7;
+                
+                // Reset if off bottom or left side
+                if (orb.y > this.canvas.height || orb.x < -50) {
+                    orb.y = -50 - Math.random() * 50;
+                    orb.x = Math.random() * (this.canvas.width + 100);
+                    orb.speed = 1.2 + Math.random() * 1.5;
+                }
+            }
+        }
+    }
+
+    animate() {
+        this.updateBackgroundOrbs();
+        this.draw();
+        requestAnimationFrame(this.animate);
+    }
+
     // Draw functions - Draws cells as beautiful 3D spheres
     drawBlock(x, y, val, isGhost = false) {
         const pxX = x * this.blockSizeX;
@@ -489,9 +557,51 @@ class RetroBrickGame {
     }
     
     drawEmptyGrid() {
+        // 1. Draw screen background color
         this.ctx.fillStyle = this.colorBg;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
+        // 2. Draw background stars/comets
+        for (let i = 0; i < this.backgroundOrbs.length; i++) {
+            const orb = this.backgroundOrbs[i];
+            this.ctx.save();
+            
+            if (orb.type === 'star') {
+                this.ctx.globalAlpha = orb.opacity;
+                this.ctx.fillStyle = orb.color;
+                this.ctx.beginPath();
+                this.ctx.arc(orb.x, orb.y, orb.size, 0, Math.PI * 2);
+                this.ctx.fill();
+            } else { // comet
+                // Drawing a diagonal comet tail and head with 88% transparency
+                this.ctx.globalAlpha = orb.opacity;
+                
+                const tailLength = orb.speed * 15;
+                const endX = orb.x + tailLength * 0.58; // Opposing angle of -40 deg
+                const endY = orb.y - tailLength * 0.8;
+                
+                // Linear gradient tail
+                const grad = this.ctx.createLinearGradient(orb.x, orb.y, endX, endY);
+                grad.addColorStop(0, orb.color);
+                grad.addColorStop(1, 'rgba(190, 244, 255, 0.0)');
+                
+                this.ctx.strokeStyle = grad;
+                this.ctx.lineWidth = orb.size;
+                this.ctx.beginPath();
+                this.ctx.moveTo(orb.x, orb.y);
+                this.ctx.lineTo(endX, endY);
+                this.ctx.stroke();
+                
+                // Comet core head
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.beginPath();
+                this.ctx.arc(orb.x, orb.y, orb.size * 0.75, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+            this.ctx.restore();
+        }
+        
+        // 3. Draw unlit grid pixel spots
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
                 const pxX = c * this.blockSizeX;
