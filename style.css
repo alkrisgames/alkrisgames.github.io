@@ -1283,7 +1283,7 @@ body::before {
 
 /* Final CTA Section styling */
 .final-cta-section {
-    padding-bottom: 180px;
+    padding-bottom: 100px;
 }
 
 .cta-container {
@@ -1401,8 +1401,8 @@ body::before {
     object-fit: contain;
     filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 35px rgba(0, 243, 255, 0.2));
     transition: transform 0.3s ease;
-    margin-bottom: -180px;
-    margin-top: -120px;
+    margin-bottom: -30px;
+    margin-top: -200px;
     position: relative;
     z-index: 10;
     display: block;
