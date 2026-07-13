@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=35">
+    <link rel="stylesheet" href="style.css?v=36">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -32,7 +32,6 @@
             <nav class="nav">
                 <a href="#hero" class="nav-link">Home</a>
                 <a href="#modes" class="nav-link">Game Modes</a>
-                <a href="#play" class="nav-link">Play Online</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#gameplay" class="nav-link">Gameplay</a>
                 <a href="#downloads" class="nav-link">Download</a>
@@ -69,82 +68,11 @@
                     </div>
                 </div>
 
-                <!-- Interactive Smartphone Mockup -->
-                <div class="hero-visual" id="play">
-                    <div class="device-mockup-container">
+                <!-- Smartphone Mockup Image -->
+                <div class="hero-visual">
+                    <div class="hero-phone-container">
                         <div class="phone-glow"></div>
-                        <div class="smartphone-device">
-                            <div class="phone-notch"></div>
-                            <div class="phone-screen">
-                                <div class="screen-status-bar">
-                                    <span id="screen-score">SCORE: 000000</span>
-                                    <span id="screen-lines">LINES: 00</span>
-                                </div>
-                                <div class="screen-main">
-                                    <!-- Canvas Game Emulator -->
-                                    <canvas id="gameCanvas" width="240" height="400"></canvas>
-                                    
-                                    <div class="lcd-grid-overlay"></div>
-                                    
-                                    <!-- Screen States -->
-                                    <div id="screen-overlay-start" class="screen-overlay active">
-                                        <div class="overlay-inner">
-                                            <div class="overlay-title">BRICK GAME</div>
-                                            <div class="overlay-subtitle">SPACE NEO</div>
-                                            <button class="overlay-btn" id="start-game-overlay-btn">PRESS START</button>
-                                            <div class="overlay-controls-hint">Use Keyboard Arrows & Space<br>or Buttons below</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div id="screen-overlay-gameover" class="screen-overlay">
-                                        <div class="overlay-inner">
-                                            <div class="overlay-title error-text">GAME OVER</div>
-                                            <div class="overlay-subtitle" id="gameover-final-score">FINAL: 0</div>
-                                            <button class="overlay-btn" id="restart-game-overlay-btn">TRY AGAIN</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Housed inside the smartphone body below the screen! -->
-                            <div class="phone-controls-area">
-                                <div class="controls-grid">
-                                    <!-- Navigation Buttons -->
-                                    <div class="dpad-radial">
-                                        <button class="dpad-btn-neon up" id="ctrl-up" title="Hold Piece">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                        </button>
-                                        <button class="dpad-btn-neon left" id="ctrl-left" title="Move Left">
-                                            <i class="fa-solid fa-caret-left"></i>
-                                        </button>
-                                        <button class="dpad-btn-neon right" id="ctrl-right" title="Move Right">
-                                            <i class="fa-solid fa-caret-right"></i>
-                                        </button>
-                                        <button class="dpad-btn-neon down" id="ctrl-down" title="Soft Drop">
-                                            <i class="fa-solid fa-caret-down"></i>
-                                        </button>
-                                        <div class="dpad-core"></div>
-                                    </div>
-                                    
-                                    <!-- Action Buttons -->
-                                    <div class="action-buttons-neon">
-                                        <button class="act-btn-neon rotate" id="ctrl-rotate" title="Rotate Piece">
-                                            <i class="fa-solid fa-rotate-right"></i> ROTATE
-                                        </button>
-                                        <button class="act-btn-neon drop" id="ctrl-drop" title="Hard Drop">
-                                            <i class="fa-solid fa-circle-down"></i> DROP
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Small Utility buttons -->
-                                <div class="mini-utils-neon">
-                                    <button class="mini-util-btn" id="ctrl-pause"><i class="fa-solid fa-pause"></i> PAUSE</button>
-                                    <button class="mini-util-btn" id="ctrl-sound"><i class="fa-solid fa-volume-high" id="sound-icon"></i> SOUND</button>
-                                    <button class="mini-util-btn" id="ctrl-reset"><i class="fa-solid fa-arrow-rotate-left"></i> RESET</button>
-                                </div>
-                            </div>
-                        </div>
+                        <img src="assets/iPhone 14 Pro.png" alt="Brick Space NEO on iPhone" class="hero-phone-image">
                     </div>
                 </div>
             </div>
@@ -477,7 +405,9 @@
                     </div>
                     
                     <div class="cta-visual">
-                        <img src="assets/iPhone 14 Pro.png" alt="Brick Space NEO on iPhone 14 Pro" class="cta-phone-image">
+                        <div class="cta-phone-wrapper">
+                            <img src="assets/iPhone 14 Pro.png" alt="Brick Space NEO on iPhone 14 Pro" class="cta-phone-image">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -535,7 +465,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="demo.js?v=35"></script>
-    <script src="app.js?v=35"></script>
+    <script src="demo.js?v=36"></script>
+    <script src="app.js?v=36"></script>
 </body>
 </html>
