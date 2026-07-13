@@ -18,9 +18,9 @@ class RetroBrickGame {
         this.canvas.width = rect.width || 240;
         this.canvas.height = rect.height || 400;
         
-        // LCD screen dimensions (10 x 20 logical brick grid)
-        this.cols = 10;
-        this.rows = 20;
+        // LCD screen dimensions (12 x 16 logical brick grid)
+        this.cols = 12;
+        this.rows = 16;
         this.blockSizeX = this.canvas.width / this.cols;
         this.blockSizeY = this.canvas.height / this.rows;
         
