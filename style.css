@@ -111,6 +111,10 @@ body::before {
     margin-right: auto;
 }
 
+.text-center {
+    text-align: center;
+}
+
 /* Premium Badges & Styling */
 .badge-premium {
     display: inline-flex;
