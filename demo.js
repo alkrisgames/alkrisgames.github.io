@@ -46,15 +46,26 @@ class RetroBrickGame {
         // Web Audio API context for sound effects
         this.audioCtx = null;
         
-        // Tetromino shapes
+        // Tetromino shapes (with specific color IDs)
         this.shapes = {
             'I': [[0,0,0,0], [1,1,1,1], [0,0,0,0], [0,0,0,0]],
-            'O': [[1,1], [1,1]],
-            'T': [[0,1,0], [1,1,1], [0,0,0]],
-            'S': [[0,1,1], [1,1,0], [0,0,0]],
-            'Z': [[1,1,0], [0,1,1], [0,0,0]],
-            'J': [[1,0,0], [1,1,1], [0,0,0]],
-            'L': [[0,0,1], [1,1,1], [0,0,0]]
+            'O': [[2,2], [2,2]],
+            'T': [[0,3,0], [3,3,3], [0,0,0]],
+            'S': [[0,4,4], [4,4,0], [0,0,0]],
+            'Z': [[5,5,0], [0,5,5], [0,0,0]],
+            'J': [[6,0,0], [6,6,6], [0,0,0]],
+            'L': [[0,0,7], [7,7,7], [0,0,0]]
+        };
+
+        // Sphere radial gradient colors: main, light shine, and dark shadow
+        this.sphereColors = {
+            1: { main: '#00f3ff', light: '#80f9ff', dark: '#007b80' }, // Cyan
+            2: { main: '#ffeb3b', light: '#fff79a', dark: '#b3a100' }, // Yellow
+            3: { main: '#d946ef', light: '#f5d0fe', dark: '#86198f' }, // Purple/Magenta
+            4: { main: '#39ff14', light: '#b3ff99', dark: '#1db300' }, // Green
+            5: { main: '#ff007f', light: '#ff99cb', dark: '#99004c' }, // Pink
+            6: { main: '#3b82f6', light: '#bfdbfe', dark: '#1d4ed8' }, // Blue
+            7: { main: '#f97316', light: '#fed7aa', dark: '#c2410c' }  // Orange
         };
         
         this.initGrid();
@@ -349,7 +360,7 @@ class RetroBrickGame {
                     const gridX = this.activeX + c;
                     
                     if (gridY >= 0) {
-                        this.grid[gridY][gridX] = 1; // Locked pixel
+                        this.grid[gridY][gridX] = matrix[r][c]; // Locked pixel with its color ID
                     }
                 }
             }
@@ -428,22 +439,53 @@ class RetroBrickGame {
         if (linesHUD) linesHUD.textContent = `LINES: ${this.padNumber(this.lines, 2)}`;
     }
     
-    // Draw functions
-    drawBlock(x, y, isGhost = false) {
+    // Draw functions - Draws cells as beautiful 3D spheres
+    drawBlock(x, y, val, isGhost = false) {
         const pxX = x * this.blockSizeX;
         const pxY = y * this.blockSizeY;
         
-        // Outer box border
-        this.ctx.fillStyle = isGhost ? this.colorGhost : this.colorPixelOn;
-        this.ctx.fillRect(pxX, pxY, this.blockSizeX, this.blockSizeY);
+        const centerX = pxX + this.blockSizeX / 2;
+        const centerY = pxY + this.blockSizeY / 2;
+        const radius = Math.min(this.blockSizeX, this.blockSizeY) / 2 - 1.5;
         
-        // Inner spacing (LCD grid lines separation)
-        this.ctx.fillStyle = this.colorBg;
-        this.ctx.fillRect(pxX + 2, pxY + 2, this.blockSizeX - 4, this.blockSizeY - 4);
+        // Default to LCD green if color index is missing
+        const colorSet = this.sphereColors[val] || { main: '#8ca895', light: '#b8c7be', dark: '#506659' };
         
-        // Inner pixel dot (Classic Gameboy style brick design)
-        this.ctx.fillStyle = isGhost ? this.colorGhost : this.colorPixelOn;
-        this.ctx.fillRect(pxX + 4, pxY + 4, this.blockSizeX - 8, this.blockSizeY - 8);
+        this.ctx.beginPath();
+        this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        
+        if (isGhost) {
+            // Draw ghost piece outline
+            this.ctx.fillStyle = 'rgba(43, 68, 51, 0.15)';
+            this.ctx.fill();
+            this.ctx.strokeStyle = colorSet.main;
+            this.ctx.lineWidth = 1.5;
+            this.ctx.stroke();
+        } else {
+            // Shiny 3D radial gradient sphere drawing
+            const gradX = centerX - radius / 3;
+            const gradY = centerY - radius / 3;
+            const gradRadius = radius * 0.15;
+            
+            const gradient = this.ctx.createRadialGradient(
+                gradX, gradY, gradRadius,
+                centerX, centerY, radius
+            );
+            
+            gradient.addColorStop(0, '#ffffff'); // Highlight point
+            gradient.addColorStop(0.2, colorSet.light);
+            gradient.addColorStop(0.7, colorSet.main);
+            gradient.addColorStop(1, colorSet.dark);
+            
+            this.ctx.fillStyle = gradient;
+            this.ctx.fill();
+            
+            // Neon glowing drop shadow effect
+            this.ctx.shadowBlur = 4;
+            this.ctx.shadowColor = colorSet.main;
+            this.ctx.fill();
+            this.ctx.shadowBlur = 0; // Reset canvas shadow parameter
+        }
     }
     
     drawEmptyGrid() {
@@ -481,7 +523,7 @@ class RetroBrickGame {
                     if (matrix[r][c] !== 0) {
                         const drawY = ghostY + r;
                         if (drawY >= 0) {
-                            this.drawBlock(this.activeX + c, drawY, true);
+                            this.drawBlock(this.activeX + c, drawY, matrix[r][c], true);
                         }
                     }
                 }
@@ -497,7 +539,7 @@ class RetroBrickGame {
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
                 if (this.grid[r][c] !== 0) {
-                    this.drawBlock(c, r);
+                    this.drawBlock(c, r, this.grid[r][c]);
                 }
             }
         }
@@ -513,7 +555,7 @@ class RetroBrickGame {
                     if (matrix[r][c] !== 0) {
                         const drawY = this.activeY + r;
                         if (drawY >= 0) {
-                            this.drawBlock(this.activeX + c, drawY);
+                            this.drawBlock(this.activeX + c, drawY, matrix[r][c]);
                         }
                     }
                 }
