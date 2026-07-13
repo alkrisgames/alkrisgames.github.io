@@ -160,11 +160,11 @@ body::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 90px;
+    height: 110px;
 }
 
 .logo-img {
-    height: 72px;
+    height: 96px; /* Expanded logo size */
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.3));
@@ -291,7 +291,7 @@ body::before {
 /* Hero Section layout */
 .hero-section {
     padding: 60px 0;
-    min-height: calc(100vh - 90px);
+    min-height: calc(100vh - 110px);
     display: flex;
     align-items: center;
     position: relative;
