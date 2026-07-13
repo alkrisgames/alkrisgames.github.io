@@ -1266,7 +1266,7 @@ body::before {
     padding: 80px;
     position: relative;
     overflow: visible;
-    background: linear-gradient(rgba(15, 20, 38, 0.8), rgba(15, 20, 38, 0.8)) padding-box,
+    background: linear-gradient(rgba(15, 20, 38, 0.88), rgba(15, 20, 38, 0.88)) padding-box,
                 linear-gradient(135deg, var(--neon-cyan), var(--neon-purple)) border-box;
     border: 2px solid transparent !important;
     border-radius: 24px;
