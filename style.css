@@ -1369,33 +1369,16 @@ body::before {
     justify-content: center;
 }
 
-.cta-phone-mockup {
-    background: #020108;
-    border: 8px solid #1f1a3a;
-    border-radius: 32px;
-    height: 360px;
-    width: 210px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    padding: 20px;
-}
-
-.cta-phone-screen {
-    width: 100%;
-    height: 100%;
-    background-color: #070312;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.cta-app-icon {
-    width: 90px;
-    height: 90px;
+.cta-phone-image {
+    max-width: 100%;
+    height: 420px;
     object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(157, 78, 221, 0.3));
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 25px rgba(0, 243, 255, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.cta-phone-image:hover {
+    transform: scale(1.03) translateY(-5px);
 }
 
 .cta-app-title {
