@@ -525,43 +525,75 @@ class RetroBrickGame {
         // Default to LCD green if color index is missing
         const colorSet = this.sphereColors[val] || { main: '#8ca895', light: '#b8c7be', dark: '#506659' };
         
-        this.ctx.beginPath();
-        this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-        
         if (isGhost) {
-            // Draw ghost piece outline
-            this.ctx.fillStyle = 'rgba(43, 68, 51, 0.15)';
-            this.ctx.fill();
+            // Draw ghost piece as a beautiful dashed circle outline (matching the screenshot!)
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, radius - 1, 0, Math.PI * 2);
             this.ctx.strokeStyle = colorSet.main;
-            this.ctx.lineWidth = 1.5;
+            this.ctx.lineWidth = 1.2;
+            this.ctx.setLineDash([3, 3]); // Dashed circle outline
             this.ctx.stroke();
+            this.ctx.setLineDash([]); // Reset line dash state
+            
+            // Draw a very faint inner core fill
+            this.ctx.fillStyle = 'rgba(165, 143, 255, 0.03)';
+            this.ctx.fill();
         } else {
-            // High-contrast, shiny glass radial gradient sphere drawing
-            const highlightX = centerX - radius * 0.32;
-            const highlightY = centerY - radius * 0.32;
+            // 1. Draw glowing neon backdrop glow under the sphere
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            this.ctx.shadowBlur = 10;
+            this.ctx.shadowColor = colorSet.main;
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; // Faint spacer
+            this.ctx.fill();
+            this.ctx.restore();
+
+            // 2. Draw outer neon stroke border
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            this.ctx.strokeStyle = colorSet.main;
+            this.ctx.lineWidth = 2.2;
+            this.ctx.stroke();
+
+            // 3. Draw 3D glass bubble background fill using radial gradient
+            const highlightX = centerX - radius * 0.28;
+            const highlightY = centerY - radius * 0.28;
             
             const gradient = this.ctx.createRadialGradient(
                 highlightX, highlightY, radius * 0.05,
                 centerX, centerY, radius
             );
             
-            gradient.addColorStop(0, '#ffffff');       // Glossy white highlight highlight peak
-            gradient.addColorStop(0.18, '#ffffff');    // Strong reflection edge
-            gradient.addColorStop(0.4, colorSet.light); // Light neon core color
-            gradient.addColorStop(0.85, colorSet.main); // Saturated neon body
-            gradient.addColorStop(1, colorSet.dark);    // Dark 3D bottom shading edge
+            // Transparent glass mapping
+            gradient.addColorStop(0, '#ffffff'); // Glossy light highlight center
+            gradient.addColorStop(0.15, colorSet.light); // Light neon core color
+            gradient.addColorStop(0.6, colorSet.main + 'bb'); // Translucent main body (85% opacity)
+            gradient.addColorStop(1, colorSet.dark + 'dd'); // Darker bottom shading edge (88% opacity)
             
-            // 1. Draw glowing neon backdrop shadow first to avoid clipping the sphere itself
-            this.ctx.save();
-            this.ctx.shadowBlur = 12; // Intense neon glow shadow
-            this.ctx.shadowColor = colorSet.main;
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, radius - 1.5, 0, Math.PI * 2);
             this.ctx.fillStyle = gradient;
             this.ctx.fill();
-            this.ctx.restore();
-            
-            // 2. Draw glossy overlay on top
-            this.ctx.fillStyle = gradient;
+
+            // 4. Draw glossy glare overlay crescent in the top-left area
+            this.ctx.beginPath();
+            this.ctx.arc(centerX - radius * 0.25, centerY - radius * 0.25, radius * 0.35, 0, Math.PI * 2);
+            const glareGrad = this.ctx.createLinearGradient(
+                centerX - radius * 0.5, centerY - radius * 0.5,
+                centerX, centerY
+            );
+            glareGrad.addColorStop(0, 'rgba(255, 255, 255, 0.65)');
+            glareGrad.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+            this.ctx.fillStyle = glareGrad;
             this.ctx.fill();
+            
+            // 5. Draw dark bottom shadow inner ring to enhance depth
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, radius - 1.5, 0, Math.PI * 2);
+            this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
+            this.ctx.lineWidth = 0.8;
+            this.ctx.stroke();
         }
     }
     
