@@ -374,7 +374,7 @@ body::before {
 
 .device-mockup-container {
     position: relative;
-    width: 290px;
+    width: 335px; /* Increased 15% from 290px */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -398,7 +398,7 @@ body::before {
     border: 10px solid #1f1a3a;
     border-radius: 36px;
     box-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.05);
-    height: 600px; /* Reduced height to fit 3:4 canvas perfectly */
+    height: 690px; /* Increased 15% from 600px */
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -420,7 +420,7 @@ body::before {
 }
 
 .phone-screen {
-    height: 410px; /* Adjusted screen height to match 3:4 aspect ratio canvas */
+    height: 470px; /* Increased 15% from 410px */
     width: 100%;
     padding: 25px 0 0; /* Remove horizontal padding so canvas touches edges */
     background-color: #070312;
@@ -1402,7 +1402,7 @@ body::before {
     max-width: none;
     height: 560px;
     object-fit: contain;
-    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 35px rgba(0, 243, 255, 0.2));
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 35px rgba(157, 78, 221, 0.45)); /* Changed glow to purple */
     transition: transform 0.3s ease;
     z-index: 10;
 }
