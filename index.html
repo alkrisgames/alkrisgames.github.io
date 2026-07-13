@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkris Games | Brick Space NEO - Premium Retro Arcade Games</title>
+    <meta name="description" content="Welcome to Alkris Games. Experience Brick Space NEO, the ultimate synthwave retro brick game compilation for Android featuring Brick, Breaker, Columns, Collapse, and Snake. Download APK or play online demo now!">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Starfield Background Canvas -->
+    <canvas id="starfield"></canvas>
+    
+    <!-- Scanlines overlay for retro feel -->
+    <div class="retro-scanlines"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="assets/app_icon.png" alt="Alkris Games Logo" class="logo-img">
+                <span class="logo-text">ALKRIS <span class="accent-text">GAMES</span></span>
+            </a>
+            <nav class="nav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#modes" class="nav-link">Game Modes</a>
+                <a href="#play" class="nav-link">Play Online</a>
+                <a href="#downloads" class="nav-link">Downloads</a>
+                <a href="privacy.html" class="nav-link">Privacy Policy</a>
+            </nav>
+            <div class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero & Emulator Section -->
+        <section class="hero-section" id="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="badge neon-text-blue">NEW RELEASE</div>
+                    <h1 class="hero-title">
+                        BRICK SPACE <span class="neon-text-pink">NEO</span>
+                    </h1>
+                    <p class="hero-description">
+                        Travel back to the golden era of handheld arcade gaming. A modernized, neon-infused synthwave tribute to the classic 9999-in-1 brick game console, tailored for Android devices.
+                    </p>
+                    <div class="hero-features">
+                        <div class="hero-feature-item">
+                            <i class="fa-solid fa-gamepad feature-icon-cyan"></i>
+                            <span>5 Retro Game Modes</span>
+                        </div>
+                        <div class="hero-feature-item">
+                            <i class="fa-solid fa-wand-magic-sparkles feature-icon-pink"></i>
+                            <span>Modern Neon Aesthetics</span>
+                        </div>
+                        <div class="hero-feature-item">
+                            <i class="fa-solid fa-volume-high feature-icon-purple"></i>
+                            <span>Synthwave Sound FX</span>
+                        </div>
+                    </div>
+                    <div class="hero-ctas">
+                        <a href="#downloads" class="btn btn-primary">
+                            <i class="fa-solid fa-download"></i> Download APK
+                        </a>
+                        <a href="#play" class="btn btn-secondary">
+                            <i class="fa-solid fa-play"></i> Play Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Handheld Retro Console Mockup -->
+                <div class="emulator-wrapper" id="play">
+                    <div class="handheld-console">
+                        <div class="console-body">
+                            <!-- Logo / Inscription -->
+                            <div class="console-logo">BRICK SPACE NEO</div>
+                            
+                            <!-- LCD Screen Frame -->
+                            <div class="screen-frame">
+                                <div class="screen-sub-frame">
+                                    <div class="screen-status-bar">
+                                        <span id="screen-score">SCORE: 000000</span>
+                                        <span id="screen-lines">LINES: 00</span>
+                                    </div>
+                                    <div class="screen-main">
+                                        <!-- Game canvas -->
+                                        <canvas id="gameCanvas" width="240" height="400"></canvas>
+                                        
+                                        <!-- Monochrome overlay overlay to simulate LCD pixels -->
+                                        <div class="lcd-grid-overlay"></div>
+                                        
+                                        <!-- Screen State Overlays -->
+                                        <div id="screen-overlay-start" class="screen-overlay active">
+                                            <div class="overlay-inner">
+                                                <div class="overlay-title">BRICK GAME</div>
+                                                <div class="overlay-subtitle">SPACE NEO</div>
+                                                <button class="overlay-btn" id="start-game-overlay-btn">PRESS START</button>
+                                                <div class="overlay-controls-hint">Use Keyboard Arrows & Space<br>or On-screen buttons</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="screen-overlay-gameover" class="screen-overlay">
+                                            <div class="overlay-inner">
+                                                <div class="overlay-title error-text">GAME OVER</div>
+                                                <div class="overlay-subtitle" id="gameover-final-score">FINAL: 0</div>
+                                                <button class="overlay-btn" id="restart-game-overlay-btn">TRY AGAIN</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Controls Area -->
+                            <div class="controls-panel">
+                                <!-- D-Pad Controls -->
+                                <div class="dpad-container">
+                                    <button class="ctrl-btn dpad-btn up" id="ctrl-up" title="Hold Piece">
+                                        <i class="fa-solid fa-caret-up"></i>
+                                    </button>
+                                    <button class="ctrl-btn dpad-btn left" id="ctrl-left" title="Move Left">
+                                        <i class="fa-solid fa-caret-left"></i>
+                                    </button>
+                                    <button class="ctrl-btn dpad-btn right" id="ctrl-right" title="Move Right">
+                                        <i class="fa-solid fa-caret-right"></i>
+                                    </button>
+                                    <button class="ctrl-btn dpad-btn down" id="ctrl-down" title="Soft Drop">
+                                        <i class="fa-solid fa-caret-down"></i>
+                                    </button>
+                                    <div class="dpad-center"></div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="actions-container">
+                                    <div class="action-btn-group">
+                                        <button class="ctrl-btn action-btn rotate" id="ctrl-rotate" title="Rotate Piece">
+                                            <span>ROTATE</span>
+                                        </button>
+                                    </div>
+                                    <div class="action-btn-group">
+                                        <button class="ctrl-btn action-btn drop" id="ctrl-drop" title="Hard Drop">
+                                            <span>DROP</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mini Utility Buttons -->
+                            <div class="utility-panel">
+                                <div class="util-btn-wrapper">
+                                    <button class="util-btn" id="ctrl-pause" title="Pause Game">
+                                        <i class="fa-solid fa-pause"></i>
+                                    </button>
+                                    <span>PAUSE</span>
+                                </div>
+                                <div class="util-btn-wrapper">
+                                    <button class="util-btn" id="ctrl-sound" title="Toggle Sound">
+                                        <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+                                    </button>
+                                    <span>SOUND</span>
+                                </div>
+                                <div class="util-btn-wrapper">
+                                    <button class="util-btn" id="ctrl-reset" title="Reset Game">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                    </button>
+                                    <span>RESET</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section about-section" id="about">
+            <div class="container text-center max-w-800">
+                <h2 class="section-title">THE NEON ARCADE RETREAT</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    Remember the grey brick handheld console of the 90s? The simple, addictive joy of maneuvering grid-based shapes, smashing bricks, and guiding a growing snake? 
+                </p>
+                <p class="about-text">
+                    <strong>Brick Space NEO</strong> takes those beloved mechanics and wraps them in a stylized cyberpunk aesthetic. Play through five distinct retro gameplay models, complete with electronic music, neon light trails, and satisfying retro sound effects synthesized dynamically. 
+                </p>
+            </div>
+        </section>
+
+        <!-- Game Modes Section -->
+        <section class="section modes-section" id="modes">
+            <div class="container">
+                <h2 class="section-title text-center">5 GAMES IN 1 CONSOLE</h2>
+                <div class="section-divider text-center"></div>
+                <p class="section-subtitle text-center">Explore the varied grid challenges included in the mobile release</p>
+                
+                <div class="modes-grid">
+                    <!-- Mode 1: Classic Brick -->
+                    <div class="mode-card glass-panel" id="mode-brick">
+                        <div class="mode-img-wrapper">
+                            <img src="assets/icons/bricks.png" alt="Classic Brick Mode Icon" class="mode-icon">
+                        </div>
+                        <h3 class="mode-title">Classic Brick</h3>
+                        <p class="mode-desc">The legendary block sorting puzzle. Maneuver falling tetrominoes, rotate them, and fit them together to clear rows and prevent the stack from reaching the ceiling.</p>
+                        <span class="mode-badge badge-blue">TETRIS STYLE</span>
+                    </div>
+
+                    <!-- Mode 2: Brick Breaker -->
+                    <div class="mode-card glass-panel" id="mode-breaker">
+                        <div class="mode-img-wrapper">
+                            <img src="assets/icons/breaker.png" alt="Brick Breaker Mode Icon" class="mode-icon">
+                        </div>
+                        <h3 class="mode-title">Brick Breaker</h3>
+                        <p class="mode-desc">Bounce the energizing sphere using a pixel slider. Smash your way through layers of glowing barriers and unlock space multipliers to clear screen configurations.</p>
+                        <span class="mode-badge badge-pink">ARKANOID STYLE</span>
+                    </div>
+
+                    <!-- Mode 3: Columns -->
+                    <div class="mode-card glass-panel" id="mode-columns">
+                        <div class="mode-img-wrapper">
+                            <img src="assets/icons/columns.png" alt="Columns Mode Icon" class="mode-icon">
+                        </div>
+                        <h3 class="mode-title">Columns</h3>
+                        <p class="mode-desc">Tackle incoming vertical columns consisting of three colored jewel-blocks. Swap colors on the fly and line them up horizontally, vertically, or diagonally.</p>
+                        <span class="mode-badge badge-cyan">MATCH 3 PUZZLE</span>
+                    </div>
+
+                    <!-- Mode 4: Collapse -->
+                    <div class="mode-card glass-panel" id="mode-collapse">
+                        <div class="mode-img-wrapper">
+                            <img src="assets/icons/collapse.png" alt="Collapse Mode Icon" class="mode-icon">
+                        </div>
+                        <h3 class="mode-title">Collapse</h3>
+                        <p class="mode-desc">Tap matching groups of nearby same-color bricks to explode them. The grid collapses downward and inward, demanding foresight to clear the board entirely.</p>
+                        <span class="mode-badge badge-purple">GRID EXPLODER</span>
+                    </div>
+
+                    <!-- Mode 5: Retro Snake -->
+                    <div class="mode-card glass-panel" id="mode-snake">
+                        <div class="mode-img-wrapper">
+                            <img src="assets/icons/snake.png" alt="Retro Snake Mode Icon" class="mode-icon">
+                        </div>
+                        <h3 class="mode-title">Retro Snake</h3>
+                        <p class="mode-desc">Control the pixelated viper as it travels the cosmic grid. Consume glowing power modules to increase length while avoiding your own tail and outer space borders.</p>
+                        <span class="mode-badge badge-green">CLASSIC SERPENT</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section class="section download-section" id="downloads">
+            <div class="container">
+                <div class="download-box glass-panel">
+                    <div class="download-content">
+                        <h2 class="download-title">READY TO PLAY?</h2>
+                        <p class="download-text">
+                            Get the complete, ad-supported mobile experience for free. Play offline, keep track of your high scores, and enjoy physical-like touch screen buttons optimized for portable devices.
+                        </p>
+                        <div class="meta-info-grid">
+                            <div class="meta-item">
+                                <span class="meta-label">CURRENT VERSION</span>
+                                <span class="meta-val">1.0.0</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">FILE SIZE</span>
+                                <span class="meta-val">9.7 MB</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">REQUIREMENT</span>
+                                <span class="meta-val">Android 8.0+</span>
+                            </div>
+                        </div>
+                        <div class="download-buttons">
+                            <a href="downloads/BrickSpaceNeo.apk" class="btn btn-primary btn-large download-apk-btn">
+                                <i class="fa-solid fa-android"></i> DIRECT APK DOWNLOAD
+                            </a>
+                            <a href="https://play.google.com/store" target="_blank" class="btn btn-secondary btn-large disabled-link">
+                                <i class="fa-brands fa-google-play"></i> GOOGLE PLAY STORE
+                            </a>
+                        </div>
+                        <div class="safe-badge">
+                            <i class="fa-solid fa-shield-halved"></i> 100% Virus-Free & Safe Direct APK Download
+                        </div>
+                    </div>
+                    <div class="download-visual">
+                        <div class="apk-card">
+                            <img src="assets/icon.png" alt="Brick Space NEO App Icon" class="apk-icon">
+                            <div class="apk-details">
+                                <span class="apk-name">Brick Space NEO</span>
+                                <span class="apk-creator">Alkris Games</span>
+                                <div class="apk-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <img src="assets/app_icon.png" alt="Alkris Games Logo" class="logo-img">
+                    <span class="logo-text">ALKRIS <span class="accent-text">GAMES</span></span>
+                </div>
+                <p class="brand-tagline">Crafting modern retro arcade experiences for mobile devices.</p>
+            </div>
+            
+            <div class="footer-links-col">
+                <h4 class="footer-heading">Navigation</h4>
+                <div class="footer-links">
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#modes">Game Modes</a>
+                    <a href="#play">Online Demo</a>
+                    <a href="#downloads">Downloads</a>
+                </div>
+            </div>
+
+            <div class="footer-links-col">
+                <h4 class="footer-heading">Legal</h4>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="privacy.html#russian">Политика конфиденциальности</a>
+                </div>
+            </div>
+
+            <div class="footer-contact-col">
+                <h4 class="footer-heading">Contact & Support</h4>
+                <p class="contact-desc">Got feedback, bug reports, or business inquiries? Drop us an email:</p>
+                <a href="mailto:alkris.games@gmail.com" class="contact-email">
+                    <i class="fa-regular fa-envelope"></i> alkris.games@gmail.com
+                </a>
+                <div class="social-links">
+                    <a href="https://github.com/aim2alex" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:alkris.games@gmail.com" title="Email Support"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p>&copy; 2026 Alkris Games. All rights reserved.</p>
+                <p>Designed for the ultimate gaming nostalgia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="demo.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

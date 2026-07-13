@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Space NEO | Privacy Policy</title>
+    <meta name="description" content="Privacy Policy for Brick Space NEO. Choose from 15 available languages to read about how we handle user data and third-party advertising.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Starfield Background Canvas -->
+    <canvas id="starfield"></canvas>
+    
+    <!-- Scanlines overlay for retro feel -->
+    <div class="retro-scanlines"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/app_icon.png" alt="Alkris Games Logo" class="logo-img">
+                <span class="logo-text">ALKRIS <span class="accent-text">GAMES</span></span>
+            </a>
+            <nav class="nav">
+                <a href="index.html#hero" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#modes" class="nav-link">Game Modes</a>
+                <a href="index.html#play" class="nav-link">Play Online</a>
+                <a href="index.html#downloads" class="nav-link">Downloads</a>
+                <a href="#" class="nav-link active">Privacy Policy</a>
+            </nav>
+            <div class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section privacy-container container">
+            <div class="privacy-header">
+                <h1 class="section-title">PRIVACY POLICY</h1>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Please select your language / Пожалуйста, выберите язык / 请选择您的语言</p>
+            </div>
+            
+            <div class="lang-selector-container">
+                <div class="lang-select-wrapper">
+                    <select id="lang-select">
+                        <option value="english">English (US)</option>
+                        <option value="russian">Русский (Russian)</option>
+                        <option value="chinese">简体中文 (Chinese)</option>
+                        <option value="german">Deutsch (German)</option>
+                        <option value="french">Français (French)</option>
+                        <option value="spanish">Español (Spanish)</option>
+                        <option value="japanese">日本語 (Japanese)</option>
+                        <option value="korean">한국어 (Korean)</option>
+                        <option value="portuguese">Português (Portuguese)</option>
+                        <option value="polish">Polski (Polish)</option>
+                        <option value="indonesian">Bahasa Indonesia (Indonesian)</option>
+                        <option value="turkish">Türkçe (Turkish)</option>
+                        <option value="italian">Italiano (Italian)</option>
+                        <option value="hindi">हिन्दी (Hindi)</option>
+                        <option value="vietnamese">Tiếng Việt (Vietnamese)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="glass-panel privacy-content-box">
+                <div id="privacy-loading" class="text-center" style="font-family: var(--font-heading); color: var(--neon-cyan);">
+                    <i class="fas fa-spinner fa-spin"></i> LOADING PRIVACY POLICY...
+                </div>
+                <div id="privacy-body">
+                    <!-- Dynamic Privacy Content Parsed Here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <img src="assets/app_icon.png" alt="Alkris Games Logo" class="logo-img">
+                    <span class="logo-text">ALKRIS <span class="accent-text">GAMES</span></span>
+                </div>
+                <p class="brand-tagline">Crafting modern retro arcade experiences for mobile devices.</p>
+            </div>
+            
+            <div class="footer-links-col">
+                <h4 class="footer-heading">Navigation</h4>
+                <div class="footer-links">
+                    <a href="index.html#hero">Home</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#modes">Game Modes</a>
+                    <a href="index.html#play">Online Demo</a>
+                    <a href="index.html#downloads">Downloads</a>
+                </div>
+            </div>
+
+            <div class="footer-links-col">
+                <h4 class="footer-heading">Legal</h4>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#russian" onclick="document.getElementById('lang-select').value='russian'; document.getElementById('lang-select').dispatchEvent(new Event('change'));">Политика конфиденциальности</a>
+                </div>
+            </div>
+
+            <div class="footer-contact-col">
+                <h4 class="footer-heading">Contact & Support</h4>
+                <p class="contact-desc">Got feedback, bug reports, or business inquiries? Drop us an email:</p>
+                <a href="mailto:alkris.games@gmail.com" class="contact-email">
+                    <i class="fa-regular fa-envelope"></i> alkris.games@gmail.com
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p>&copy; 2026 Alkris Games. All rights reserved.</p>
+                <p>Designed for the ultimate gaming nostalgia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Starfield Animation Logic (copied inline or referenced) -->
+    <script>
+        // Simple starfield for privacy page
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('starfield');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let stars = [];
+                const numStars = 100;
+                let centerX, centerY;
+                
+                function resize() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    centerX = canvas.width / 2;
+                    centerY = canvas.height / 2;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+                
+                for (let i = 0; i < numStars; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width - centerX,
+                        y: Math.random() * canvas.height - centerY,
+                        z: Math.random() * canvas.width,
+                        color: Math.random() > 0.5 ? '#ff007f' : '#00f3ff'
+                    });
+                }
+                
+                function animate() {
+                    ctx.fillStyle = '#080511';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    for (let i = 0; i < numStars; i++) {
+                        const star = stars[i];
+                        star.z -= 1;
+                        if (star.z <= 0) {
+                            star.z = canvas.width;
+                            star.x = Math.random() * canvas.width - centerX;
+                            star.y = Math.random() * canvas.height - centerY;
+                        }
+                        const px = (star.x / star.z) * 400 + centerX;
+                        const py = (star.y / star.z) * 400 + centerY;
+                        if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
+                            const size = (1 - star.z / canvas.width) * 2.5;
+                            ctx.beginPath();
+                            ctx.arc(px, py, size, 0, Math.PI * 2);
+                            ctx.fillStyle = star.color;
+                            ctx.fill();
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+            
+            // Mobile Menu
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const nav = document.querySelector('.nav');
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                    const icon = menuToggle.querySelector('i');
+                    icon.className = nav.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+                });
+            }
+            
+            // Multilingual Policy Loader
+            const langSelect = document.getElementById('lang-select');
+            const bodyDiv = document.getElementById('privacy-body');
+            const loadingDiv = document.getElementById('privacy-loading');
+            
+            let policies = {}; // Maps lang -> Markdown content
+            
+            function parseMarkdown(md) {
+                // Escape HTML tags to prevent XSS except the allowed headings/anchors
+                let html = md
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+                
+                // Headings
+                html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+                html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+                html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+                
+                // Bold
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // List items
+                html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+                
+                // Links
+                html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+                
+                // Paragraphs and grouping
+                let blocks = html.split(/\n\n+/);
+                html = blocks.map(block => {
+                    block = block.trim();
+                    if (!block) return '';
+                    if (block.startsWith('<h') || block.startsWith('<li>') || block.startsWith('<ul>')) {
+                        return block;
+                    }
+                    if (block.includes('<li>')) {
+                        return '<ul>' + block + '</ul>';
+                    }
+                    return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
+                }).join('\n');
+                
+                return html;
+            }
+            
+            function loadSection(lang) {
+                if (policies[lang]) {
+                    bodyDiv.innerHTML = parseMarkdown(policies[lang]);
+                    return;
+                }
+                bodyDiv.innerHTML = '<p class="text-center">Language section not found.</p>';
+            }
+            
+            // Fetch and parse the privacy policy markdown
+            fetch('PRIVACY_POLICY.md')
+                .then(res => {
+                    if (!res.ok) throw new Error("Could not load PRIVACY_POLICY.md file");
+                    return res.text();
+                })
+                .then(text => {
+                    // Split the markdown by sections: ## <a name="lang"></a>
+                    // The first part is the intro header.
+                    const sections = text.split(/##\s+<a\s+name="([^"]+)"><\/a>/gi);
+                    
+                    // The first item is the header (index 0)
+                    policies['intro'] = sections[0];
+                    
+                    // Subsequent elements are pairs: [lang_name, content]
+                    for (let i = 1; i < sections.length; i += 2) {
+                        const langCode = sections[i].toLowerCase().trim();
+                        let content = sections[i + 1] || '';
+                        
+                        // Clean up trailing line rules
+                        content = content.replace(/^[^#\s\w]+/m, ''); // remove separator line '---\n'
+                        policies[langCode] = content;
+                    }
+                    
+                    loadingDiv.style.display = 'none';
+                    
+                    // Listen to drop-down selection
+                    langSelect.addEventListener('change', (e) => {
+                        loadSection(e.target.value);
+                    });
+                    
+                    // Check URL hash for direct language linking
+                    const hash = window.location.hash.substring(1);
+                    if (hash && policies[hash]) {
+                        langSelect.value = hash;
+                    }
+                    
+                    // Trigger initial load
+                    loadSection(langSelect.value);
+                })
+                .catch(err => {
+                    console.error(err);
+                    loadingDiv.style.display = 'none';
+                    bodyDiv.innerHTML = `<p class="text-center error-text">Error loading privacy policy. Please contact support at <a href="mailto:alkris.games@gmail.com">alkris.games@gmail.com</a>.</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
