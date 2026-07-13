@@ -1294,10 +1294,10 @@ body::before {
 }
 
 .cta-content {
-    text-align: center;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .cta-container:hover {
@@ -1333,7 +1333,7 @@ body::before {
     margin-bottom: 20px;
     color: var(--text-main);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    text-align: center;
+    text-align: left;
 }
 
 .cta-text {
@@ -1341,13 +1341,13 @@ body::before {
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 40px;
-    text-align: center;
+    text-align: left;
 }
 
 .cta-buttons {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 25px;
     margin-bottom: 25px;
     flex-wrap: wrap;
@@ -1405,6 +1405,9 @@ body::before {
     margin-top: -120px;
     position: relative;
     z-index: 10;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cta-phone-image:hover {
@@ -1724,11 +1727,11 @@ body::before {
     .cta-grid {
         grid-template-columns: 1fr;
         gap: 50px;
-        text-align: center;
+        text-align: left;
     }
     
     .cta-buttons {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .cta-phone-image {
@@ -1736,6 +1739,9 @@ body::before {
         height: 380px;
         margin-top: 20px;
         margin-bottom: -100px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
     }
     
     .safe-badge-large {
