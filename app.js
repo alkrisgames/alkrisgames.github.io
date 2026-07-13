@@ -134,27 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Trailer Modal Window Logic
-    const watchTrailerBtn = document.getElementById('btn-watch-trailer');
-    const trailerModal = document.getElementById('trailer-modal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
 
-    if (watchTrailerBtn && trailerModal && closeModalBtn) {
-        watchTrailerBtn.addEventListener('click', () => {
-            trailerModal.classList.add('active');
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            trailerModal.classList.remove('active');
-        });
-
-        // Close when clicking overlay backdrop
-        trailerModal.addEventListener('click', (e) => {
-            if (e.target === trailerModal) {
-                trailerModal.classList.remove('active');
-            }
-        });
-    }
 
     // 5. Handheld Emulator Input Hook bindings
     const btnLeft = document.getElementById('ctrl-left');
