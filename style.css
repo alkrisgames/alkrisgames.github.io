@@ -164,7 +164,7 @@ body::before {
 }
 
 .logo-img {
-    height: 48px;
+    height: 72px;
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.3));
@@ -1100,7 +1100,7 @@ body::before {
 
 .screenshot-img:hover {
     transform: scale(1.04) translateY(-8px);
-    filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(0, 243, 255, 0.35));
+    filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(157, 78, 221, 0.65));
 }
 
 .menu-mockup {
