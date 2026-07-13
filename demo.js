@@ -689,14 +689,16 @@ class RetroBrickGame {
                     break;
                 case 'ArrowDown':
                 case 'KeyS':
-                    this.softDrop();
+                    this.hardDrop(); // Down - drops instantly
                     break;
                 case 'ArrowUp':
                 case 'KeyW':
-                    this.hold(); // Use Up to hold piece in console D-Pad
-                    break;
                 case 'KeyX':
-                    this.rotate();
+                    this.rotate(); // Up - rotates
+                    break;
+                case 'KeyC':
+                case 'ShiftLeft':
+                    this.hold(); // Shift/C - hold piece
                     break;
                 case 'Space':
                     this.hardDrop();
