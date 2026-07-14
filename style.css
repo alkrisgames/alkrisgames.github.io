@@ -791,6 +791,13 @@ body::before {
     transition: opacity 0.3s;
 }
 
+.mode-glow-accent.glow-cyan { background: var(--neon-cyan); }
+.mode-glow-accent.glow-green { background: var(--neon-green); }
+.mode-glow-accent.glow-pink { background: var(--neon-pink); }
+.mode-glow-accent.glow-purple { background: var(--neon-purple); }
+.mode-glow-accent.glow-yellow { background: var(--neon-yellow); }
+.mode-glow-accent.glow-gray { background: #9ca3af; }
+
 .premium-mode-card:hover .mode-glow-accent {
     opacity: 0.35;
 }
@@ -804,6 +811,37 @@ body::before {
 .premium-mode-card#card-breaker:hover { border-color: rgba(255, 0, 127, 0.3); box-shadow: 0 15px 30px rgba(255, 0, 127, 0.1); }
 .premium-mode-card#card-columns:hover { border-color: rgba(157, 78, 221, 0.3); box-shadow: 0 15px 30px rgba(157, 78, 221, 0.1); }
 .premium-mode-card#card-collapse:hover { border-color: rgba(255, 183, 3, 0.3); box-shadow: 0 15px 30px rgba(255, 183, 3, 0.1); }
+.premium-mode-card#card-upcoming:hover { border-color: rgba(156, 163, 175, 0.3); box-shadow: 0 15px 30px rgba(156, 163, 175, 0.1); }
+
+.coming-soon-card {
+    border: 1px dashed rgba(255, 255, 255, 0.15) !important;
+    opacity: 0.85;
+}
+
+.coming-soon-card:hover {
+    border-style: solid !important;
+    border-color: rgba(156, 163, 175, 0.3) !important;
+    opacity: 1;
+}
+
+.card-icon-mystery {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.badge-gray {
+    background: rgba(156, 163, 175, 0.1);
+    color: var(--text-secondary);
+    border: 1px solid rgba(156, 163, 175, 0.15);
+}
 
 .card-top {
     display: flex;
